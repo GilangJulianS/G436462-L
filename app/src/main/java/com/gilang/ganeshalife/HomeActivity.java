@@ -1,11 +1,9 @@
 package com.gilang.ganeshalife;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,26 +11,64 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.gilang.fragment.HomeFragment;
+import com.gilang.custom.CustomPagerAdapter;
+import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.header.HeaderDesign;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Created by macair on 3/26/16.
+ */
+public class HomeActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
+
+    private MaterialViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_home);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+	    mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
+		    @Override
+		    public HeaderDesign getHeaderDesign(int page) {
+			    switch (page) {
+				    case 0:
+					    return HeaderDesign.fromColorResAndUrl(
+							    R.color.blue,
+							    "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg");
+				    case 1:
+					    return HeaderDesign.fromColorResAndUrl(
+							    R.color.green,
+							    "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+				    case 2:
+					    return HeaderDesign.fromColorResAndUrl(
+							    R.color.cyan,
+							    "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
+				    case 3:
+					    return HeaderDesign.fromColorResAndUrl(
+							    R.color.red,
+							    "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
+			    }
+
+			    //execute others actions if needed (ex : modify your header logo)
+
+			    return null;
+		    }
+	    });
+	    ViewPager pager = mViewPager.getViewPager();
+	    pager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager(), this));
+
+	    mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+	    mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+
+
+
+	    Toolbar toolbar = mViewPager.getToolbar();
+	    toolbar.setTitle("");
+	    setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -43,7 +79,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, HomeFragment.newInstance(this)).commit();
     }
 
     @Override
@@ -77,7 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
+//
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
