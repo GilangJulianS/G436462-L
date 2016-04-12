@@ -1,13 +1,13 @@
 package com.gilang.ganeshalife;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,28 +15,25 @@ import android.view.MenuItem;
 import com.gilang.custom.Value;
 import com.gilang.fragment.BookmarkFragment;
 import com.gilang.fragment.DetailFragment;
-import com.gilang.fragment.PublisherFragment;
-import com.gilang.model.Publisher;
 
-public class NormalActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Created by Gilang on 12/04/2016.
+ */
+public class CollapseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.activity_collapse);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent caller = getIntent();
         Bundle extras;
@@ -48,10 +45,8 @@ public class NormalActivity extends AppCompatActivity
             }
         }
         FragmentManager manager = getSupportFragmentManager();
-        if(fragmentType == Value.FRAGMENT_LIBRARY) {
-            manager.beginTransaction().replace(R.id.container, PublisherFragment.newInstance(this)).commit();
-        }else if(fragmentType == Value.FRAGMENT_BOOKMARK){
-            manager.beginTransaction().replace(R.id.container, BookmarkFragment.newInstance(this)).commit();
+        if(fragmentType == Value.FRAGMENT_DETAIL) {
+            manager.beginTransaction().replace(R.id.container, DetailFragment.newInstance(this)).commit();
         }
     }
 
@@ -80,22 +75,11 @@ public class NormalActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home) {
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

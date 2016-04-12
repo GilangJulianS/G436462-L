@@ -1,5 +1,6 @@
 package com.gilang.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,5 +34,17 @@ public class DetailFragment extends Fragment {
 
     public void bindViews(View v){
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof AppCompatActivity){
+            activity = (AppCompatActivity) context;
+            ViewGroup headerContainer = (ViewGroup) activity.findViewById(R.id.parallax_header);
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View header = inflater.inflate(R.layout.header_detail, headerContainer, false);
+            headerContainer.addView(header);
+        }
     }
 }

@@ -130,6 +130,11 @@ public class HomeActivity extends AppCompatActivity
             i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_BOOKMARK);
             startActivity(i);
             finish();
+        }else if(id == R.id.nav_my_library){
+            Intent i = new Intent(this, NormalActivity.class);
+            i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_LIBRARY);
+            startActivity(i);
+            finish();
         }
 
 

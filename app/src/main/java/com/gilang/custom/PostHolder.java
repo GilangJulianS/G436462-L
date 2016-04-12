@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gilang.ganeshalife.CollapseActivity;
 import com.gilang.ganeshalife.NormalActivity;
 import com.gilang.ganeshalife.R;
 import com.gilang.model.Post;
@@ -45,7 +46,7 @@ public class PostHolder extends RecyclerHolder {
 		card.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(activity, NormalActivity.class);
+				Intent i = new Intent(activity, CollapseActivity.class);
 				i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_DETAIL);
 				activity.startActivity(i);
 			}
