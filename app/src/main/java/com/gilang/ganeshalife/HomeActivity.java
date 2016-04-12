@@ -1,5 +1,6 @@
 package com.gilang.ganeshalife;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gilang.custom.CustomPagerAdapter;
+import com.gilang.custom.Value;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
@@ -118,6 +120,17 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if(id == R.id.nav_read_now){
+            Intent i = new Intent(this, HomeActivity.class);
+            startActivity(i);
+            finish();
+        } else if(id == R.id.nav_bookmark){
+            Intent i = new Intent(this, NormalActivity.class);
+            i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_BOOKMARK);
+            startActivity(i);
+            finish();
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

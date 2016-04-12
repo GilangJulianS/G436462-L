@@ -1,6 +1,8 @@
 package com.gilang.ganeshalife;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gilang.custom.Value;
+import com.gilang.fragment.BookmarkFragment;
 import com.gilang.fragment.DetailFragment;
 
 public class NormalActivity extends AppCompatActivity
@@ -32,7 +36,21 @@ public class NormalActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, DetailFragment.newInstance(this)).commit();
+        Intent caller = getIntent();
+        Bundle extras;
+        int fragmentType = -1;
+        if(caller != null){
+            extras = caller.getExtras();
+            if(extras != null){
+                fragmentType = extras.getInt(Value.FRAGMENT_TYPE);
+            }
+        }
+        FragmentManager manager = getSupportFragmentManager();
+        if(fragmentType == Value.FRAGMENT_DETAIL) {
+            manager.beginTransaction().replace(R.id.container, DetailFragment.newInstance(this)).commit();
+        }else if(fragmentType == Value.FRAGMENT_BOOKMARK){
+            manager.beginTransaction().replace(R.id.container, BookmarkFragment.newInstance(this)).commit();
+        }
     }
 
     @Override

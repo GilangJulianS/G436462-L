@@ -46,6 +46,7 @@ public class PostHolder extends RecyclerHolder {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(activity, NormalActivity.class);
+				i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_DETAIL);
 				activity.startActivity(i);
 			}
 		});
