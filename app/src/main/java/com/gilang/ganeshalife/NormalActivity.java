@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.gilang.custom.Value;
 import com.gilang.fragment.BookmarkFragment;
 import com.gilang.fragment.DetailFragment;
+import com.gilang.fragment.ExploreFragment;
 import com.gilang.fragment.LibraryFragment;
 import com.gilang.fragment.PublisherFragment;
 import com.gilang.model.Publisher;
@@ -50,9 +51,17 @@ public class NormalActivity extends AppCompatActivity
         }
         FragmentManager manager = getSupportFragmentManager();
         if(fragmentType == Value.FRAGMENT_LIBRARY) {
-            manager.beginTransaction().replace(R.id.container, LibraryFragment.newInstance(this)).commit();
+            manager.beginTransaction()
+                    .replace(R.id.container, LibraryFragment.newInstance(this))
+                    .commit();
         }else if(fragmentType == Value.FRAGMENT_BOOKMARK){
-            manager.beginTransaction().replace(R.id.container, BookmarkFragment.newInstance(this)).commit();
+            manager.beginTransaction()
+                    .replace(R.id.container, BookmarkFragment.newInstance(this))
+                    .commit();
+        }else if(fragmentType == Value.FRAGMENT_EXPLORE){
+            manager.beginTransaction()
+                    .replace(R.id.container, ExploreFragment.newInstance(this, null))
+                    .commit();
         }
     }
 

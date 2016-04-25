@@ -9,4 +9,5 @@ public class Value {
     public static final int FRAGMENT_DETAIL = 100;
     public static final int FRAGMENT_BOOKMARK = 101;
     public static final int FRAGMENT_LIBRARY = 102;
+    public static final int FRAGMENT_EXPLORE = 103;
 }

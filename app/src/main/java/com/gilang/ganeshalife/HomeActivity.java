@@ -135,6 +135,11 @@ public class HomeActivity extends AppCompatActivity
             i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_LIBRARY);
             startActivity(i);
             finish();
+        }else if(id == R.id.nav_explore){
+	        Intent i = new Intent(this, NormalActivity.class);
+	        i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_EXPLORE);
+	        startActivity(i);
+	        finish();
         }
 
 
