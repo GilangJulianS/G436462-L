@@ -1,7 +1,9 @@
 package com.gilang.ganeshalife;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +16,9 @@ import android.view.MenuItem;
 
 import com.gilang.custom.Value;
 import com.gilang.fragment.BookmarkFragment;
+import com.gilang.fragment.CategoryListFragment;
 import com.gilang.fragment.DetailFragment;
+import com.gilang.fragment.ProfileFragment;
 
 /**
  * Created by Gilang on 12/04/2016.
@@ -35,6 +39,9 @@ public class CollapseActivity extends AppCompatActivity {
         drawer.setDrawerListener(toggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        CollapsingToolbarLayout collapseLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
+        collapseLayout.setExpandedTitleColor(Color.TRANSPARENT);
+
         Intent caller = getIntent();
         Bundle extras;
         int fragmentType = -1;
@@ -46,16 +53,29 @@ public class CollapseActivity extends AppCompatActivity {
         }
         FragmentManager manager = getSupportFragmentManager();
         if(fragmentType == Value.FRAGMENT_DETAIL) {
-            manager.beginTransaction().replace(R.id.container, DetailFragment.newInstance(this)).commit();
+            manager.beginTransaction()
+                    .replace(R.id.container, DetailFragment.newInstance(this))
+                    .commit();
+        }else if(fragmentType == Value.FRAGMENT_CATEGORY_LIST){
+            manager.beginTransaction()
+                    .replace(R.id.container, CategoryListFragment.newInstance(this))
+                    .commit();
+        }else if(fragmentType == Value.FRAGMENT_PROFILE){
+            manager.beginTransaction()
+                    .replace(R.id.container, ProfileFragment.newInstance(this))
+                    .commit();
         }
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        FragmentManager manager = getSupportFragmentManager();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if(manager.getBackStackEntryCount() > 0){
+            manager.popBackStack();
+        }else {
             super.onBackPressed();
         }
     }

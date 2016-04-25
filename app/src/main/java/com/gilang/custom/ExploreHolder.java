@@ -1,6 +1,7 @@
 package com.gilang.custom;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gilang.fragment.ExploreFragment;
+import com.gilang.ganeshalife.CollapseActivity;
 import com.gilang.ganeshalife.R;
 import com.gilang.model.ExploreCategory;
 import com.gilang.model.Topic;
@@ -57,6 +59,8 @@ public class ExploreHolder extends RecyclerHolder {
 	}
 
 	public void gotoCategoryList(Activity activity){
-
+		Intent i = new Intent(activity, CollapseActivity.class);
+		i.putExtra(Value.FRAGMENT_TYPE, Value.FRAGMENT_CATEGORY_LIST);
+		activity.startActivity(i);
 	}
 }

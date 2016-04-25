@@ -68,9 +68,12 @@ public class NormalActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        FragmentManager manager = getSupportFragmentManager();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if(manager.getBackStackEntryCount() > 0){
+            manager.popBackStack();
+        }else {
             super.onBackPressed();
         }
     }
