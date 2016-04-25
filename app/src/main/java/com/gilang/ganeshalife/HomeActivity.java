@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.gilang.custom.CustomPagerAdapter;
+import com.gilang.custom.HomePagerAdapter;
 import com.gilang.custom.Value;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity
 		    }
 	    });
 	    ViewPager pager = mViewPager.getViewPager();
-	    pager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager(), this));
+	    pager.setAdapter(new HomePagerAdapter(getSupportFragmentManager(), this));
 
 	    mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
 	    mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());

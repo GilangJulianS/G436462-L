@@ -10,11 +10,11 @@ import com.gilang.fragment.HomeFragment;
 /**
  * Created by macair on 3/26/16.
  */
-public class CustomPagerAdapter extends FragmentStatePagerAdapter {
+public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
 	private AppCompatActivity activity;
 
-	public CustomPagerAdapter(FragmentManager fm, AppCompatActivity activity) {
+	public HomePagerAdapter(FragmentManager fm, AppCompatActivity activity) {
 		super(fm);
 		this.activity = activity;
 	}
