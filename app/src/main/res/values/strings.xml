@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Ganesha Life</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="web_address">http://212.47.240.14/mobileglapi</string>
+    <string name="tempContent">
+GEMASTIK atau Pagelaran Mahasiswa Nasional bidang Teknologi Informasi dan Komunikasi Tahun 2015, merupakan program Direktorat Penelitian dan Pengabdian kepada Masyarakat (DP2M) DIKTI, sebagai upaya untuk meningkatkan kualitas peserta didik sehingga mampu mengambil peran sebagai agen perubahan dalam memajukan TIK dan pemanfaatannya di Indonesia.
+
+Dalam tujuh tahun terakhir telah diadakan Pagelaran Mahasiswa Nasional bidang Teknologi Informasi dan Komunikasi (GEMASTIK) secara berkesinambungan. Kegiatan ini diharapkan menjadi ajang untuk menyalurkan kreativitas mahasiswa dalam pengembangan Teknologi Informasi dan Komunikasi di tingkat nasional. Mahasiswa sebagai pilar penting dalam pembangunan Negara, diharapkan dapat meningkatkan kemampuannya dalam penguasaan TIK, dan dapat mengembangkan potensinya besar sebagai agen perubahan melalui pengembangan IPTEK di masa kini dan masa yang akan datang.
+    </string>
+
+    <string name="preferences_name">pglr</string>
+</resources>
