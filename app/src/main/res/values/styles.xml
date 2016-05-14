@@ -37,6 +37,4 @@
             <enum name="height" value="1"/>
         </attr>
     </declare-styleable>
-
-
 </resources>
