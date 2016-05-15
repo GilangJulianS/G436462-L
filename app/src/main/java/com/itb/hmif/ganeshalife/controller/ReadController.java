@@ -293,9 +293,10 @@ public class ReadController {
 
             @Override
             public byte[] getBody() throws AuthFailureError {
-                String sendBody = "{\"userId\":\"" + userId + "\"," +
-                        "\"offset\":" + offset + "\"," +
-                        "\"limit\":\"" + limit + "\"}";
+//                String sendBody = "{\"userId\":\"" + userId + "\"," +
+//                        "\"offset\":" + offset + "\"," +
+//                        "\"limit\":\"" + limit + "\"}";
+                  String sendBody = "{\"userId\":\"" + userId + "\"}";
                 Log.d("getmybookmarkpost", "body : " + sendBody);
 
                 byte[] sendByte = sendBody.getBytes();
