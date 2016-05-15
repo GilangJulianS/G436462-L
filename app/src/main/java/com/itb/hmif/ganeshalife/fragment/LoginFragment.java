@@ -1,12 +1,10 @@
 package com.itb.hmif.ganeshalife.fragment;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,7 @@ import android.widget.Toast;
 import com.itb.hmif.ganeshalife.R;
 import com.itb.hmif.ganeshalife.activity.HomeActivity;
 import com.itb.hmif.ganeshalife.controller.MainController;
-import com.itb.hmif.ganeshalife.controller.OnVolleyCallback;
+import com.itb.hmif.ganeshalife.custom.OnVolleyCallback;
 import com.itb.hmif.ganeshalife.model.User;
 
 import org.json.JSONException;

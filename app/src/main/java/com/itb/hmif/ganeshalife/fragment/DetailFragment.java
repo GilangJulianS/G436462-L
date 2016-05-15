@@ -36,6 +36,10 @@ public class DetailFragment extends Fragment {
 
     }
 
+    public void loadData(){
+
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

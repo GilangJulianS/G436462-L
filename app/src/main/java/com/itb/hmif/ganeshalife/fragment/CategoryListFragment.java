@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.itb.hmif.ganeshalife.R;
+import com.itb.hmif.ganeshalife.controller.ExploreController;
+import com.itb.hmif.ganeshalife.custom.OnVolleyCallback;
 import com.itb.hmif.ganeshalife.model.Category;
+import com.itb.hmif.ganeshalife.model.Publisher;
 import com.itb.hmif.ganeshalife.recyclerviewframework.DataModel;
 import com.itb.hmif.ganeshalife.recyclerviewframework.RecyclerFragment;
 
@@ -18,6 +21,9 @@ import java.util.List;
  * Created by Gilang on 26/04/2016.
  */
 public class CategoryListFragment extends RecyclerFragment {
+
+	LoadingDialog loadingDialog;
+	ExploreController exploreController;
 
 	public CategoryListFragment(){}
 
@@ -39,6 +45,34 @@ public class CategoryListFragment extends RecyclerFragment {
 
 	@Override
 	public List<DataModel> getDatas() {
+		List<DataModel> datas = new ArrayList<>();
+
+		loadingDialog = new LoadingDialog();
+		exploreController = new ExploreController();
+		loadingDialog.show(getFragmentManager(), "Loading");
+		exploreController.getAvailablePublisher(getActivity(), new OnVolleyCallback() {
+			@Override
+			public void onSuccess(String result) {
+				Publisher[] postRet = exploreController.getPublishersFromJson(result);
+				for(int i = 0; i < postRet.length; i++){
+					adapter.add(postRet[i]);
+				}
+				adapter.notifyDataSetChanged();
+				loadingDialog.dismiss();
+			}
+
+			@Override
+			public void onError(String errorResult) {
+				loadingDialog.dismiss();
+			}
+		});
+
+//		datas = getDummyDatas();
+
+		return datas;
+	}
+
+	public List<DataModel> getDummyDatas(){
 		List<DataModel> datas = new ArrayList<>();
 
 		datas.add(new Category(-1, "HMIF", "Himpunan Mahasiswa Informatika", false));

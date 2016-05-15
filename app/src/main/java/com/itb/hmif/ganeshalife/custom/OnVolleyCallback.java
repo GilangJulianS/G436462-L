@@ -1,4 +1,4 @@
-package com.itb.hmif.ganeshalife.controller;
+package com.itb.hmif.ganeshalife.custom;
 
 /**
  * Created by Yanfa on 3/10/2016.

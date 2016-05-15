@@ -1,10 +1,7 @@
 package com.itb.hmif.ganeshalife.controller;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.util.ArrayMap;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -16,9 +13,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.itb.hmif.ganeshalife.R;
+import com.itb.hmif.ganeshalife.custom.OnVolleyCallback;
 import com.itb.hmif.ganeshalife.model.Post;
 import com.itb.hmif.ganeshalife.model.Publisher;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -27,7 +31,10 @@ import java.util.Map;
  */
 public class ExploreController {
 
+    private boolean isError;
+
     public ExploreController() {
+        isError = true;
     }
 
     public void getMyLibrary(Activity activity, final String userId, final int type, final OnVolleyCallback onVolleyCallback){
@@ -361,5 +368,31 @@ public class ExploreController {
         postRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 1, 1f));
 
         queue.add(postRequest);
+    }
+
+    public Publisher[] getPublishersFromJson(String stringJSON){
+        Publisher[] publishers = new Publisher[0];
+        try {
+            JSONObject jsonRet = new JSONObject(stringJSON);
+            isError = jsonRet.getString("error").equals("true");
+            if(!isError){
+                JSONArray data = jsonRet.getJSONArray("data");
+                publishers = new Publisher[data.length()];
+                for(int i = 0; i < data.length(); i++) {
+                    JSONObject currJSON = data.getJSONObject(i);
+
+                    String publisherId = currJSON.getString("publisherId");
+                    String name = currJSON.getString("name");
+                    String rating = currJSON.getString("rating");
+                    String keterangan = currJSON.getString("keterangan");
+                    boolean isFollowing = currJSON.getBoolean("isFollowing");
+
+                    publishers[i] = new Publisher(publisherId, name, keterangan, rating, isFollowing);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return publishers;
     }
 }

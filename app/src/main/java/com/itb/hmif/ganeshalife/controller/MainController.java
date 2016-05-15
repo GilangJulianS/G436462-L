@@ -3,7 +3,6 @@ package com.itb.hmif.ganeshalife.controller;
 import android.app.Activity;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -16,10 +15,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.itb.hmif.ganeshalife.R;
-import com.itb.hmif.ganeshalife.fragment.LoadingFragment;
+import com.itb.hmif.ganeshalife.custom.OnVolleyCallback;
 import com.itb.hmif.ganeshalife.model.User;
-
-import java.util.Map;
 
 /**
  * Created by Yanfa on 3/10/2016.

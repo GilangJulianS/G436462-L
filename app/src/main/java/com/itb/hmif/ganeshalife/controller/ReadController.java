@@ -1,10 +1,7 @@
 package com.itb.hmif.ganeshalife.controller;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.util.ArrayMap;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -16,8 +13,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.itb.hmif.ganeshalife.R;
+import com.itb.hmif.ganeshalife.custom.OnVolleyCallback;
 import com.itb.hmif.ganeshalife.model.Post;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -26,7 +30,10 @@ import java.util.Map;
  */
 public class ReadController {
 
+    private boolean isError;
+
     public ReadController() {
+        isError = true;
     }
 
     public void getPostPerCategory(Activity activity, final String userId, final int kategori, final int offset, final int limit, final OnVolleyCallback onVolleyCallback){
@@ -252,9 +259,8 @@ public class ReadController {
         queue.add(postRequest);
     }
 
-    public void getMyBookmarkPost(Activity activity, final String userId, final int kategori, final int offset, final int limit, final OnVolleyCallback onVolleyCallback){
+    public void getMyBookmarkPost(Activity activity, final String userId, final int offset, final int limit, final OnVolleyCallback onVolleyCallback){
         Log.d("getmybookmarkpost", "userId : " + userId);
-        Log.d("getmybookmarkpost", "userId : " + kategori);
         Log.d("getmybookmarkpost", "offset : " + offset);
         Log.d("getmybookmarkpost", "limit : " + limit);
 
@@ -287,7 +293,9 @@ public class ReadController {
 
             @Override
             public byte[] getBody() throws AuthFailureError {
-                String sendBody = "{\"userId\":\"" + userId + "\"}";
+                String sendBody = "{\"userId\":\"" + userId + "\"," +
+                        "\"offset\":" + offset + "\"," +
+                        "\"limit\":\"" + limit + "\"}";
                 Log.d("getmybookmarkpost", "body : " + sendBody);
 
                 byte[] sendByte = sendBody.getBytes();
@@ -364,5 +372,36 @@ public class ReadController {
         postRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 1, 1f));
 
         queue.add(postRequest);
+    }
+
+    public Post[] getPostsFromJSON(String stringJSON){
+        Post[] postRet = new Post[0];
+        try {
+            JSONObject jsonRet = new JSONObject(stringJSON);
+            isError = jsonRet.getString("error").equals("true");
+            if(!isError){
+                JSONArray data = jsonRet.getJSONArray("data");
+                postRet = new Post[data.length()];
+                for(int i = 0; i < data.length(); i++) {
+                    JSONObject currJSON = data.getJSONObject(i);
+
+                    String postId = currJSON.getString("postId");
+                    String title = currJSON.getString("title");
+                    String content = currJSON.getString("content");
+                    String rating = currJSON.getString("rating");
+                    String imageUrl = currJSON.getString("imageUrl");
+
+                    String time = currJSON.getString("postedAt");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                    Date postedAt = sdf.parse(time);
+                    postRet[i] = new Post(postId, title, imageUrl, rating, content, "Highlight", postedAt);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return postRet;
     }
 }

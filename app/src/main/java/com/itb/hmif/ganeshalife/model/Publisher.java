@@ -20,7 +20,7 @@ public class Publisher extends DataModel {
     public String publisherRating;
     public String contentMoveAndJob;
     public String contentProker;
-    public boolean isFollowing;
+    public boolean isFollowed;
 
     public Publisher(){}
 
@@ -35,6 +35,14 @@ public class Publisher extends DataModel {
         this.publisherName = publisherName;
         this.publisherDetailName = publisherDetailName;
         this.publisherRating = publisherRating;
+    }
+
+    public Publisher(String publisherId, String publisherName, String publisherDetailName, String publisherRating, boolean isFollowed) {
+        this.publisherId = publisherId;
+        this.publisherName = publisherName;
+        this.publisherDetailName = publisherDetailName;
+        this.publisherRating = publisherRating;
+        this.isFollowed = isFollowed;
     }
 
     @Override
